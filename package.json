@@ -1,0 +1,60 @@
+{
+  "name": "matrix-ui-plugin-boilerplate-24",
+  "version": "1.0.1",
+  "description": " matrix-ui-plugin-boilerplate for the 2.4 tree",
+  "repository": {
+    "url": "https://github.com/MatrixRequirements/matrix-ui-plugin-boilerplate-24"
+  },
+  "scripts": {
+    "pretty": "prettier --write src/",
+    "clean": "rm -rf dist",
+    "check": "tsc --noEmit",
+    "check:metadata": "ajv --spec=draft2020 validate -s resources/plugin-metadata.json -d resources/matrix.json --strict=false",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "package": "zip -j ./dist/${npm_package_name}.zip ./dist/*.js* && zip -j -u ./dist/${npm_package_name}.zip ./resources/matrix.json",
+    "proxy": "export $(grep -v '^#' Proxy.env | xargs) && ./proxy.sh",
+    "eslint": "eslint src",
+    "eslint:fix": "eslint src --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.18.1",
+    "@types/bootstrap": "3.3.32",
+    "@types/bootstrap-datepicker": "0.0.15",
+    "@types/d3": "^7.4.0",
+    "@types/jest": "^29.5.3",
+    "@types/jquery": "^3.5.5",
+    "@types/jqueryui": "1.11.31",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "ajv": "^6.12.6",
+    "ajv-cli": "^5.0.0",
+    "css-loader": "^6.9.1",
+    "dotenv": "^16.4.1",
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-storybook": "^0.6.13",
+    "prettier": "^3.0.1",
+    "style-loader": "^3.3.4",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.3.3",
+    "webpack": "^5.90.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-merge": "^5.10.0"
+  },
+  "dependencies": {
+    "matrix-requirements-sdk": "^2.4.0-rc.10",
+    "matrixrequirements-type-declarations": "^2.4.0-rc.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

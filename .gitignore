@@ -1,0 +1,11 @@
+dist
+node_modules
+matrix-example.iml
+build
+.cache
+.parcel-cache
+.idea
+Proxy.env
+dev-proxy/chrome-profile
+.DS_Store
+.env

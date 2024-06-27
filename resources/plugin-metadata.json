@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Plugin Metadata",
+  "description": "Describes a client plugin in Matrix",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier of the plugin, should be in reverse fqdn notation (com.matrixreq.plugin.example). This needs to have at least 2 segments (plugin -> invalid, my.plugin -> valid)",
+      "type": "string",
+      "pattern": "(^\\S+\\.)+(\\S+)$"
+    },
+    "version": {
+      "description": "A version identifier that must have 3-4 segments",
+      "type": "string",
+      "pattern": "^((\\d+)\\.?){2,3}([a-z\\-\\d]+)$"
+    },
+    "matrixVersion": {
+      "type": "array",
+      "items": {
+        "description": "A version identifier",
+        "type": "string",
+        "pattern": "^((\\d+)\\.?){1,3}([a-z\\-\\d]+)??$"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "matrixVersion"
+  ]
+}
