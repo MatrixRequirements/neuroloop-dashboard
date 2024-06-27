@@ -7,8 +7,10 @@ import {
     IItem,
     IPluginConfig,
     IPluginFieldHandler,
+    IPluginFieldValueBase,
     IPluginSettingPage,
     IProjectSettingsBase,
+    IServerSettingsBase,
     ITool,
     PluginCore,
     Project,
@@ -16,15 +18,7 @@ import {
 } from "matrix-requirements-sdk/client";
 
 import { sdkInstance } from "./Instance";
-import { Control } from "./Control/Control";
 import { DashboardPage, IDashboardParameters } from "./Dashboard/DashboardPage";
-import { ProjectSettingsPage } from "./ProjectSettingsPage/ProjectSettingsPage";
-import { ServerSettingsPage } from "./ServerSettingsPage/ServerSettingsPage";
-import { Tool } from "./Tools/Tools";
-import { IPluginFieldValue, IProjectSettings, IServerSettings } from "./Interfaces";
-import { FieldHandler } from "./Control/FieldHandler";
-import { postProcessorExample, preProcessorExample } from "./printProcessors";
-import { tableMathExample } from "./tableMath";
 
 /** This class is allows you to configure the features of your plugin.
  *
@@ -34,10 +28,10 @@ import { tableMathExample } from "./tableMath";
 export class Plugin
     implements
         IExternalPlugin<
-            IServerSettings,
-            IProjectSettings,
-            IPluginFieldHandler<IPluginFieldValue>,
-            IPluginFieldValue,
+            IServerSettingsBase,
+            IProjectSettingsBase,
+            IPluginFieldHandler<IPluginFieldValueBase>,
+            IPluginFieldValueBase,
             IDashboardParameters
         >
 {
@@ -46,7 +40,7 @@ export class Plugin
      * See IPluginConfig interface for explanation of parameters
      */
 
-    static config: IPluginConfig<IServerSettings, IProjectSettings> = {
+    static config: IPluginConfig<IServerSettingsBase, IProjectSettingsBase> = {
         /*  Page in admin client to configure settings across all projects - set enabled to false if not needed.
             The page itself is implemented in the _ServerSettingsPage.ts
         */
@@ -54,7 +48,7 @@ export class Plugin
             id: "NLPCustomerSettings",
             title: "NLP customer settings page",
             type: "NLPcs",
-            enabled: true,
+            enabled: false,
             defaultSettings: {
                 myServerSetting: "default value for setting defined in Interfaces.ts",
                 mySecondValue: "second value for setting defined in Interfaces.ts",
@@ -70,7 +64,7 @@ export class Plugin
             id: "NLPprojectsettings",
             title: "NLP projectsettings page",
             type: "NLPps",
-            enabled: true,
+            enabled: false,
             defaultSettings: {
                 myProjectSetting: "default value for setting defined in Interfaces.ts",
             },
@@ -112,7 +106,7 @@ export class Plugin
         */
         dashboard: {
             id: "NLP",
-            title: "NLP dashboard page",
+            title: "Neuroloop Dashboard Page",
             enabled: true,
             icon: "fal fa-cog",
             parent: "DASHBOARDS",
@@ -121,8 +115,8 @@ export class Plugin
         },
     };
     core: PluginCore;
-    PLUGIN_VERSION = "<PLUGIN_VERSION_PLACEHOLDER>";
-    PLUGIN_NAME = "<PLUGIN_NAME_PLACEHOLDER>";
+    PLUGIN_VERSION = "1.0.0";
+    PLUGIN_NAME = "Neuroloop Dashboard";
     private currentProject: Project;
 
     /**
@@ -136,8 +130,6 @@ export class Plugin
         this.core = new sdkInstance.PluginCore(this);
         // @ts-ignore
         this.currentProject = null;
-        this.registerPrintProcessors();
-        this.registerTableMath();
     }
 
     async getDashboardAsync(): Promise<DashboardPage> {
@@ -148,35 +140,26 @@ export class Plugin
         return new DashboardPage(this.currentProject, sdkInstance.globalMatrix.projectStorage);
     }
 
-    async getProjectSettingsPageAsync(): Promise<IPluginSettingPage<IProjectSettings>> {
-        await this.setupProject();
-
-        if (sdkInstance.app.isConfigApplication) {
-            // @ts-ignore
-            return new ProjectSettingsPage(sdkInstance.app);
-        }
+    async getProjectSettingsPageAsync(): Promise<IPluginSettingPage<IProjectSettingsBase>> {
         // @ts-ignore
         return null;
     }
 
-    async getServerSettingsPageAsync(): Promise<IPluginSettingPage<IServerSettings>> {
-        if (sdkInstance.app.isConfigApplication) {
-            // @ts-ignore
-            return new ServerSettingsPage(sdkInstance.app);
-        }
+    async getServerSettingsPageAsync(): Promise<IPluginSettingPage<IServerSettingsBase>> {
         // @ts-ignore
         return null;
     }
 
-    async getControlAsync(ctrlObj: JQuery): Promise<Control> {
-        await this.setupProject();
-        let config = this.getConfig();
-        return new Control(config, new FieldHandler(Plugin.config.field.fieldType, config), ctrlObj);
+    async getControlAsync(
+        ctrlObj: JQuery,
+    ): Promise<ControlCoreBase<IPluginFieldHandler<IPluginFieldValueBase>, IPluginFieldValueBase>> {
+        // @ts-ignore
+        return null;
     }
 
-    async getToolAsync(): Promise<Tool> {
-        await this.setupProject();
-        return Promise.resolve(new Tool());
+    async getToolAsync(): Promise<ITool> {
+        // @ts-ignore
+        return null;
     }
 
     getConfig() {
@@ -212,15 +195,6 @@ export class Plugin
         // this.enabledInContext = false;
     }
 
-    private registerPrintProcessors() {
-        sdkInstance.printProcessorRegistry.registerPostProcessor("postProcessorExample", postProcessorExample);
-        sdkInstance.printProcessorRegistry.registerPreProcessor("postProcessorExample", preProcessorExample);
-    }
-
-    private registerTableMath() {
-        sdkInstance.tableMath.registerFunction("tableMathExample", tableMathExample);
-    }
-
     private async setupProject(newProjectName?: string) {
         if (this.currentProject) {
             // Did we change projects?
@@ -231,8 +205,8 @@ export class Plugin
         }
         if (this.currentProject == null) {
             this.currentProject = newProjectName
-                ? await sdkInstance.matrixsdk.openProject(newProjectName)
-                : await sdkInstance.matrixsdk.openCurrentProjectFromSession();
+                ? (await sdkInstance.matrixsdk.openProject(newProjectName))!
+                : (await sdkInstance.matrixsdk.openCurrentProjectFromSession())!;
         }
     }
 }

@@ -1,14 +1,11 @@
 import * as ReactDOM from "react-dom";
 
 import { Plugin } from "../Plugin";
-import { DashboardPageContainer } from "./Components/DashboardPageContainer";
-import { DashboardProps, DashboardState, IDashboard, IDashboardContent, IProjectSettings } from "../Interfaces";
+import { IDashboardContent, IProjectSettings } from "../Interfaces";
 import { Project, IDataStorage, IItem, IDashboardPage, IDashboardParametersBase } from "matrix-requirements-sdk/client";
 import { sdkInstance } from "./../Instance";
 
 export interface IDashboardParameters extends IDashboardParametersBase {}
-
-export const Dashboard = (props: IDashboardContent) => <div className="itemDetails">Hello from Dashboard!</div>;
 
 // Glue code to support the IDashboardPage interface
 // eslint-disable-next-line no-unused-vars
@@ -30,13 +27,17 @@ export class DashboardPage implements IDashboardPage<IDashboardParameters> {
     }
 
     /** Add interactive element in this function */
-    renderProjectPage() {
+    async renderProjectPage() {
         const element = document.createElement("div");
-        let dashboard: IDashboard = {
-            header: { title: "Dashboard", showFullScreen: false },
-            dashboardContent: { settings: this.settings },
-        };
-        ReactDOM.render(<DashboardPageContainer dashboard={dashboard} />, element);
+        const html = "<h1>Neuoloop Dashboard Page</h1>\n" + "<p>Here is our dashboard</p>";
+        element.innerHTML = html;
+        const projects = await sdkInstance.matrixsdk.getProjects();
+        // append the project list.
+        element.innerHTML += "<p>Here is a list of all projects on the server:</p><ul>";
+        for (let p of projects) {
+            element.innerHTML += `<li>${p}</li>`;
+        }
+        element.innerHTML += "</ul>";
         sdkInstance.app.itemForm.append(element);
     }
 
