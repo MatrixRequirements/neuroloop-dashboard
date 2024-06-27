@@ -7,8 +7,8 @@ module.exports = {
         extensions: [".ts", ".js", ".tsx", ".jsx"],
     },
     entry: {
-        BPP: {
-            import: "./src/BPP/Plugin.ts",
+        NLP: {
+            import: "./src/NLP/Plugin.ts",
         },
     },
     module: {

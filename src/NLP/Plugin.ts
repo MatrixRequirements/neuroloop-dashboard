@@ -51,15 +51,15 @@ export class Plugin
             The page itself is implemented in the _ServerSettingsPage.ts
         */
         customerSettingsPage: {
-            id: "BPPCustomerSettings",
-            title: "BPP customer settings page",
-            type: "BPPcs",
+            id: "NLPCustomerSettings",
+            title: "NLP customer settings page",
+            type: "NLPcs",
             enabled: true,
             defaultSettings: {
                 myServerSetting: "default value for setting defined in Interfaces.ts",
                 mySecondValue: "second value for setting defined in Interfaces.ts",
             },
-            settingName: "BPP_settings",
+            settingName: "NLP_settings",
             help: "This is my help text",
             helpUrl: "https://docs23.matrixreq.com",
         },
@@ -67,14 +67,14 @@ export class Plugin
             The page itself is implemented in the _ProjectSetingsPage.ts
         */
         projectSettingsPage: {
-            id: "BPPprojectsettings",
-            title: "BPP projectsettings page",
-            type: "BPPps",
+            id: "NLPprojectsettings",
+            title: "NLP projectsettings page",
+            type: "NLPps",
             enabled: true,
             defaultSettings: {
                 myProjectSetting: "default value for setting defined in Interfaces.ts",
             },
-            settingName: "BPP_settings",
+            settingName: "NLP_settings",
             help: "This is my help text",
             helpUrl: "https://docs23.matrixreq.com",
         },
@@ -111,8 +111,8 @@ export class Plugin
             The field itself is implemented in the _Control.ts
         */
         dashboard: {
-            id: "BPP",
-            title: "BPP dashboard page",
+            id: "NLP",
+            title: "NLP dashboard page",
             enabled: true,
             icon: "fal fa-cog",
             parent: "DASHBOARDS",

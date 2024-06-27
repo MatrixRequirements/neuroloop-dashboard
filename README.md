@@ -42,7 +42,7 @@ Matrix Requirements offers the ability to integrate custom plugins to expand its
 ## Getting Started
 
 1. Navigate to the TypeScript project template repository on GitHub:
-   [Matrix UI Plugin Boilerplate](https://github.com/MatrixRequirements/matrix-ui-plugin-boilerplate-24)
+   [Matrix UI Plugin Boilerplate](https://github.com/MatrixRequirements/neuroloop_dashboard)
 
 2. Click on the "Use this template" button to clone the repository into your personal account or organization.
 3.  Go to the CI action and start the workflow [rename the project from template](../..//actions/workflows/template.yaml)
@@ -141,15 +141,15 @@ const config = {
 
 ```typescript
    customerSettingsPage: {
-            id: "BPPCustomerSettings", // This is the id of the page in the admin client. It should be unique
-            title: "BPP customer settings page", // This is the title of the page in the admin client
-            type: "BPPcs", // This is the type of the page in the admin client (Used in URL)
+            id: "NLPCustomerSettings", // This is the id of the page in the admin client. It should be unique
+            title: "NLP customer settings page", // This is the title of the page in the admin client
+            type: "NLPcs", // This is the type of the page in the admin client (Used in URL)
             enabled: true, // Set this to false if you don't want to display this page
             defaultSettings: { // This is the default settings for the page.
                 myServerSetting: "default value for setting defined in Interfaces.ts",
                 mySecondValue: "second value for setting defined in Interfaces.ts",
             },
-            settingName: "BPP_settings", // This is the name of the setting when storing the settings using the REST api
+            settingName: "NLP_settings", // This is the name of the setting when storing the settings using the REST api
             help: "This is my help text", // This is the help text displayed in the top right in the admin client
             helpUrl: "https://docs23.matrixreq.com",
         },
@@ -162,14 +162,14 @@ The boilerplate code contains "advanced button" implementation to edit the setti
 
  ``` typescript
 ProjectSettingsPage: {
-id: "BPPProjectSettings", // This is the id of the page in the admin client per project. It should be unique
-title: "BPP projectsettings settings page", // This is the title of the page in the admin client
-type: "BPPps", // This is the type of the page in the admin client (Used in URL)
+id: "NLPProjectSettings", // This is the id of the page in the admin client per project. It should be unique
+title: "NLP projectsettings settings page", // This is the title of the page in the admin client
+type: "NLPps", // This is the type of the page in the admin client (Used in URL)
 enabled: true, // Set this to false if you don't want to display this page
 defaultSettings: { // This is the default settings for the page.
 myProjectSetting: "default value for setting defined in Interfaces.ts",
 },
-settingName: "BPP_settings", // This is the name of the setting when storing the settings using the REST api
+settingName: "NLP_settings", // This is the name of the setting when storing the settings using the REST api
 help: "This is my help text", // This is the help text displayed in the top right in the admin client
 helpUrl: "https://docs23.matrixreq.com",
 },
@@ -253,8 +253,8 @@ The value of the field is stored in the JSON format. The JSON format is defined 
 
 ``` typescript
      dashboard: {
-            id: "BPP", // This is the id of the dashboard in the client. It should be unique per dashboard
-            title: "BPP dashboard page", // This is the title of the dashboard in the client
+            id: "NLP", // This is the id of the dashboard in the client. It should be unique per dashboard
+            title: "NLP dashboard page", // This is the title of the dashboard in the client
             enabled: true, // Set this to false if you don't want to display this dashboard
             icon: "fal fa-cog", // This is the icon of the dashboard in the client
             parent: "DASHBOARDS", // This is the parent of the dashboard in the client (Used to group dashboards)
@@ -414,4 +414,4 @@ Finally, the code in the directory `./ProjectSettingsPage` can be removed from t
 ith the steps in this guide, you're set to create, test, and deploy plugins to enhance the Matrix Requirements platform. Ensure to abide by the ESLint standards provided to maintain code quality. If you run into difficulties, consult the detailed documentation or engage with the Matrix Requirements community or support channels.
 
 
-For further queries or clarifications about this guide, please create an issue on the [GitHub repository](https://github.com/MatrixRequirements/matrix-ui-plugin-boilerplate-24) or contact us at support@matrixreq.com.
+For further queries or clarifications about this guide, please create an issue on the [GitHub repository](https://github.com/MatrixRequirements/neuroloop_dashboard) or contact us at support@matrixreq.com.

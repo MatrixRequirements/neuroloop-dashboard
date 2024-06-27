@@ -1,9 +1,9 @@
 {
-  "name": "matrix-ui-plugin-boilerplate-24",
+  "name": "neuroloop_dashboard",
   "version": "1.0.1",
   "description": " matrix-ui-plugin-boilerplate for the 2.4 tree",
   "repository": {
-    "url": "https://github.com/MatrixRequirements/matrix-ui-plugin-boilerplate-24"
+    "url": "https://github.com/MatrixRequirements/neuroloop_dashboard"
   },
   "scripts": {
     "pretty": "prettier --write src/",
